@@ -1,15 +1,16 @@
 const express = require('express');
-const router = express.Router();
 
 const jwt = require('jsonwebtoken')
+
+const checkTokenMiddleWare = require('../../middleWares/checkTokenMiddleWare')
+
+const router = express.Router();
+
 const moment = require('moment')
 
 const AccountModel = require('../../models/AccountModel');
 
-const checkTokenMiddleWare = require('../../middleWares/checkTokenMiddleWare')
-
 router.get('/account', checkTokenMiddleWare, function (req, res, next) {
-    
     AccountModel.find().sort({ time: -1 }).exec().then((result) => {
         res.json({
             code: '0000',

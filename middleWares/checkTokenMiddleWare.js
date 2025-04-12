@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken')
 
 const { secret } = require('../config/config')
+
 let checkTokenMiddleWare = (req, res, next) => {
     let token = req.get('token')
     if (!token) {
@@ -20,7 +21,7 @@ let checkTokenMiddleWare = (req, res, next) => {
                 data: null
             })
         }
-        req.user = data;
+        req.user = data
         next()
     })
 }

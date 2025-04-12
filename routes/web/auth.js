@@ -1,9 +1,10 @@
 var express = require('express');
+
+var router = express.Router();
+
 const UserModel = require('../../models/UserModel')
 
 const md5 = require('md5')
-
-var router = express.Router();
 
 router.get('/reg', (req, res) => {
     res.render('auth/reg')
@@ -14,6 +15,10 @@ router.post('/reg', (req, res) => {
         res.status(500).send('registration failed')
         return
     }).then((result) => {
+        if (!result) {
+            res.status(500).send('registration failed')
+            return
+        }
         res.render('success', { msg: 'Registration Complete', url: '/login' })
     })
 
@@ -30,7 +35,7 @@ router.post('/login', (req, res) => {
         res.status(500).send('login failed')
         return
     }).then((result) => {
-        if (result === null) {
+        if (!result) {
             res.status(500).send('login failed')
             return
         }
@@ -45,7 +50,7 @@ router.post('/login', (req, res) => {
 router.post('/logout', (req, res) => {
 
     req.session.destroy(() => {
-        res.render('success', {msg: 'logout successful', url:'/login'})
+        res.render('success', { msg: 'logout successful', url: '/login' })
     })
 })
 

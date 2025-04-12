@@ -4,22 +4,21 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+var indexRouter = require('./routes/web/index');
+const authRouter = require('./routes/web/auth')
+const authAPIRouter = require('./routes/api/api_auth')
+const accountRouter = require('./routes/api/account')
+
 const session = require('express-session')
 const MongoStore = require('connect-mongo')
 
-const accountRouter = require('./routes/api/account')
-const authRouter = require('./routes/web/auth')
-const authAPIRouter = require('./routes/api/auth')
-
-var indexRouter = require('./routes/web/index');
+const {DBHOST, DBPORT, DBNAME, secret} = require('./config/config')
 
 var app = express();
 
-const {DBHOST, DBPORT, DBNAME} = require('./config/config')
-
 app.use(session({
   name:'sid',
-  secret: 'sawg',
+  secret: secret,
   saveUninitialized: false,
   resave: true,
   store: MongoStore.create({

@@ -1,11 +1,12 @@
 var express = require('express');
-const UserModel = require('../../models/UserModel')
-
-const md5 = require('md5')
-const jwt = require('jsonwebtoken')
-
 var router = express.Router();
+
+const jwt = require('jsonwebtoken')
 const {secret} = require('../../config/config')
+
+const UserModel = require('../../models/UserModel')
+const md5 = require('md5')
+
 
 
 router.post('/login', (req, res) => {

@@ -1,6 +1,6 @@
 const moment = require('moment')
 const AccountModel = require('../../models/AccountModel');
-const checkLoginMiddleWare = require('../../middleWares/checkTokenMiddleWare')
+const checkLoginMiddleWare = require('../../middleWares/checkLoginMiddleware')
 const express = require('express');
 const router = express.Router();
 
